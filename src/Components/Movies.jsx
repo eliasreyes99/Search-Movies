@@ -1,23 +1,16 @@
 import { useEffect, useState } from "react";
 import "../Styles/Movies.css";
-import { useFav } from "../hooks/useFav";
+import { useFav } from "../context/favorite";
 import { useLocation } from "react-router-dom";
 
 // Componentes/ListOfMovies.jsx
 function ListOfMovies({ movies }) {
   const location = useLocation()
-  const { fav, removeFav } = useFav();
-  const isFavPage = location.pathname === "/favorites"
-  const status = isFavPage ? 'delete' : 'add';
+  const {addFavorite} = useFav()
 
-  const handleFavorite = (movie) => {
-    fav(movie);
-  };
-
-  const handleDelete = (movie) => {
-    removeFav(movie.id);
-  };
-
+  const handleFav = fav => {
+    addFavorite(fav)
+  } 
   return (
     <ul className="containermovies">
       {movies.length > 0 ? (
@@ -31,21 +24,13 @@ function ListOfMovies({ movies }) {
             <h3 className="movie-title">{movie.title || "Sin título"}</h3>
             <p className="movie-year">{movie.year || "Año desconocido"}</p>
 
-            {status === "delete" ? (
+            
               <button
-                onClick={() => handleDelete(movie)}
-                className="delete-favorite"
-              >
-                Delete from favorite
-              </button>
-            ) : (
-              <button
-                onClick={() => handleFavorite(movie)}
                 className="favorite-button"
+                onClick={() => handleFav(movie)}
               >
                 Add to favorites
               </button>
-            )}
           </li>
         ))
       ) : (

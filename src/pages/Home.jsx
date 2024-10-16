@@ -9,6 +9,7 @@ function Home() {
     year: movie.Year,
     poster: movie.Poster,
   }));
+  
   return (
     <div>
       <Movies movies={movies} />

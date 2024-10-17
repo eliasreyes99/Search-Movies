@@ -46,10 +46,11 @@ export default function SearchMovies() {
       </header>
 
       <main>
-        {loading ? <p>Cargando...</p> :
-        <Movies className="movies" movies={movies} />
-        
-        }
+        {loading ? (
+          <p>Cargando...</p>
+        ) : (
+          <Movies className="movies" movies={movies} />
+        )}
       </main>
     </div>
   );
